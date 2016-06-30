@@ -17,6 +17,5 @@ Imports:
     dplyr,
     testthat
 Suggests:
-    openair,
-    worldmet
+    openair
 RoxygenNote: 5.0.1
