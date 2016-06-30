@@ -62,7 +62,7 @@ get_wacl_data <- function(site, year = 2015:2017, url_test = FALSE) {
   
   # Download files, do not warn if missing.
   suppressWarnings(
-    download_files(urls, directory = temp_directory)
+    download_file(urls, directory = temp_directory)
   )
   
   # Load files
