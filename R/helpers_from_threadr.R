@@ -43,7 +43,7 @@ download_to_directory <- function(df_map, quiet) {
   # Download file
   tryCatch({
     
-    download.file(df_map$url, file, quiet = quiet)  
+    download.file(df_map$url, file, quiet = quiet)
     
   }, warning = function(w) {
     

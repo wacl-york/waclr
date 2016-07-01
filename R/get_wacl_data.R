@@ -12,9 +12,6 @@
 #' 
 #' @param year Year(s) to get data for. 
 #' 
-#' @param url_test A switch for which url scheme to use; testing or production. 
-#' This should not need to be changed. 
-#' 
 #' @return Tidy data frame contains sites' monitoring data with correct data 
 #' types. 
 #' 
@@ -32,19 +29,11 @@
 #' }
 #' 
 #' @export
-get_wacl_data <- function(site, year = 2015:2017, url_test = FALSE) {
+get_wacl_data <- function(site, year = 2015:2017) {
   
-  if (url_test) {
-    
-    # Testing url
-    url_base <- "https://rawgit.com/skgrange/web.server/master/data/wacl/"
-    
-  } else {
-    
-    # Production url
-    url_base <- "https://cdn.rawgit.com/skgrange/web.server/master/data/wacl/"
-    
-  }
+  # Straight to the file
+  url_base <- "https://github.com/skgrange/web.server/blob/master/data/wacl/"
+  url_suffix <- "?raw=true"
   
   # Assign some useful things
   temp_directory <- tempdir()
@@ -57,8 +46,8 @@ get_wacl_data <- function(site, year = 2015:2017, url_test = FALSE) {
   file_names <- stringr::str_c(df_strings$year, "_", df_strings$site, 
                                "_hourly_data.csv.bz2")
   
-  # Add base
-  urls <- stringr::str_c(url_base, file_names)
+  # Add base and suffix
+  urls <- stringr::str_c(url_base, file_names, url_suffix)
   
   # Download files, do not warn if missing.
   suppressWarnings(

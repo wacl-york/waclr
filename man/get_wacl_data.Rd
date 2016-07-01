@@ -4,16 +4,13 @@
 \alias{get_wacl_data}
 \title{Function to get data for WACL (Wolfson Atmospheric Laboratory) uses.}
 \usage{
-get_wacl_data(site, year = 2015:2017, url_test = FALSE)
+get_wacl_data(site, year = 2015:2017)
 }
 \arguments{
 \item{site}{Site to get data for. Currently only \code{"kirb"} and 
 \code{"litp"} are supported.}
 
 \item{year}{Year(s) to get data for.}
-
-\item{url_test}{A switch for which url scheme to use; testing or production. 
-This should not need to be changed.}
 }
 \value{
 Tidy data frame contains sites' monitoring data with correct data 
