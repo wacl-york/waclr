@@ -7,13 +7,15 @@
 #' 
 #' @author Stuart K. Grange 
 #' 
-#' @param site Site to get data for. Currently only \code{"kirb"} and 
-#' \code{"litp"} are supported. 
+#' @param site Site(s) to get data for. Currently \code{"kirb"} and \code{"litp"} 
+#' are supported. 
 #' 
 #' @param year Year(s) to get data for. 
 #' 
 #' @return Tidy data frame contains sites' monitoring data with correct data 
 #' types. 
+#' 
+#' @seealso \code{\link{get_wacl_sites()}}
 #' 
 #' @import dplyr
 #' 
@@ -29,7 +31,7 @@
 #' }
 #' 
 #' @export
-get_wacl_data <- function(site, year = 2015:2017) {
+get_wacl_data <- function(site, year) {
   
   # Straight to the file
   url_base <- "https://github.com/skgrange/web.server/blob/master/data/wacl/"

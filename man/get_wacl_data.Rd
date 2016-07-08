@@ -4,11 +4,11 @@
 \alias{get_wacl_data}
 \title{Function to get data for WACL (Wolfson Atmospheric Laboratory) uses.}
 \usage{
-get_wacl_data(site, year = 2015:2017)
+get_wacl_data(site, year)
 }
 \arguments{
-\item{site}{Site to get data for. Currently only \code{"kirb"} and 
-\code{"litp"} are supported.}
+\item{site}{Site(s) to get data for. Currently \code{"kirb"} and \code{"litp"} 
+are supported.}
 
 \item{year}{Year(s) to get data for.}
 }
@@ -36,5 +36,8 @@ data_two_sites <- get_wacl_data(site = c("kirb", "litp"), year = 2015:2017)
 }
 \author{
 Stuart K. Grange
+}
+\seealso{
+\code{\link{get_wacl_sites()}}
 }
 
