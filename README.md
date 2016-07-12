@@ -9,6 +9,6 @@
 To install the development version the [**devtools**](https://github.com/hadley/devtools) package will need to be installed first. Then:
 
 ```
-# Install envirologgerr
+# Install waclr
 devtools::install_github("skgrange/waclr")
 ```
