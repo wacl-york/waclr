@@ -4,10 +4,13 @@
 \alias{get_wacl_processes}
 \title{Function to get WACL's processes.}
 \usage{
-get_wacl_processes()
+get_wacl_processes(json = FALSE)
+}
+\arguments{
+\item{json}{Should the return be in JSON format? Default is \code{FALSE}.}
 }
 \value{
-Data frame with correct data types.
+Data frame or JSON with correct data types.
 }
 \description{
 Function to get WACL's processes.
@@ -17,6 +20,9 @@ Function to get WACL's processes.
 
 # Get processes
 data_processes <- get_wacl_processes()
+
+# Or print as json
+get_wacl_processes(json = TRUE)
 
 }
 

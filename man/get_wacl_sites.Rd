@@ -4,10 +4,13 @@
 \alias{get_wacl_sites}
 \title{Function to get WACL's sites.}
 \usage{
-get_wacl_sites()
+get_wacl_sites(json = FALSE)
+}
+\arguments{
+\item{json}{Should the return be in JSON format? Default is \code{FALSE}.}
 }
 \value{
-Data frame with correct data types.
+Data frame or pretty printed JSON with correct data types.
 }
 \description{
 Function to get WACL's sites.
@@ -15,8 +18,11 @@ Function to get WACL's sites.
 \examples{
 \dontrun{
 
-# Get processes
+# Get sites
 data_sites <- get_wacl_sites()
+
+# Or print as json
+get_wacl_sites(json = TRUE)
 
 }
 

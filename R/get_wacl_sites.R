@@ -1,19 +1,24 @@
 #' Function to get WACL's sites.  
 #' 
-#' @return Data frame with correct data types. 
+#' @param json Should the return be in JSON format? Default is \code{FALSE}. 
+#' 
+#' @return Data frame or pretty printed JSON with correct data types. 
 #' 
 #' @author Stuart K. Grange
 #' 
 #' @examples 
 #' \dontrun{
 #' 
-#' # Get processes
+#' # Get sites
 #' data_sites <- get_wacl_sites()
+#' 
+#' # Or print as json
+#' get_wacl_sites(json = TRUE)
 #' 
 #' }
 #' 
 #' @export
-get_wacl_sites <- function() {
+get_wacl_sites <- function(json = FALSE) {
   
   # Straight to the file
   url_base <- "https://github.com/skgrange/web.server/blob/master/data/wacl/"
@@ -30,6 +35,9 @@ get_wacl_sites <- function() {
   
   # Load file
   df <- read.csv(file.path(temp_directory, basename(url)), stringsAsFactors = FALSE)
+  
+  # To json, not a helpful name here
+  if (json) df <- jsonlite::toJSON(df, pretty = TRUE)
   
   # Return
   df
