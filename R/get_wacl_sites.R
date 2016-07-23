@@ -1,10 +1,15 @@
 #' Function to get WACL's sites.  
 #' 
+#' \code{\link{get_wacl_sites}} is used to get the monitoring sites which are 
+#' supported by \code{\link{get_wacl_data}}. 
+#' 
 #' @param json Should the return be in JSON format? Default is \code{FALSE}. 
 #' 
 #' @return Data frame or pretty printed JSON with correct data types. 
 #' 
 #' @author Stuart K. Grange
+#' 
+#' @seealso \code{\link{get_wacl_data}}
 #' 
 #' @examples 
 #' \dontrun{
@@ -28,13 +33,11 @@ get_wacl_sites <- function(json = FALSE) {
   # Concatenate
   url <- stringr::str_c(url_base, file_name, url_suffix)
   
-  # Assign some useful things
-  temp_directory <- tempdir()
-  
-  download_file(url, directory = temp_directory)
+  # Download file
+  download_file(url, directory = tempdir())
   
   # Load file
-  df <- read.csv(file.path(temp_directory, basename(url)), stringsAsFactors = FALSE)
+  df <- read.csv(file.path(tempdir(), basename(url)), stringsAsFactors = FALSE)
   
   # To json, not a helpful name here
   if (json) df <- jsonlite::toJSON(df, pretty = TRUE)

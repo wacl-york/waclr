@@ -4,17 +4,20 @@
 \alias{get_wacl_data}
 \title{Function to get data for WACL (Wolfson Atmospheric Laboratory) uses.}
 \usage{
-get_wacl_data(site, year)
+get_wacl_data(site, year, period = "hour")
 }
 \arguments{
-\item{site}{Site(s) to get data for. Currently \code{"kirb"} and \code{"litp"} 
-are supported.}
+\item{site}{Site(s) to get data for. Use \code{\link{get_wacl_sites}} to
+find sites which are available.}
 
-\item{year}{Year(s) to get data for.}
+\item{year}{Year(s) to get data for. A vector of integers.}
+
+\item{period}{Aggregation period to get data for. Default is \code{"hour"} 
+which is the only aggregation period currently supported. This will most 
+likely change in the future.}
 }
 \value{
-Tidy data frame contains sites' monitoring data with correct data 
-types.
+Data frame containing sites' monitoring data with correct data types.
 }
 \description{
 The data imported by this function should always be regarded as preliminary 
@@ -26,10 +29,11 @@ guarantee that these data are available.
 \dontrun{
 
 # Get data for the kirb site for 2016
-data_kirb_2016 <- get_wacl_data(site = "kirb", year = 2016)
+data_kirb_2016 <- get_wacl_data(site = "kirb", year = 2016, period = "hour")
 
 # Get data for two sites for many years
-data_two_sites <- get_wacl_data(site = c("kirb", "litp"), year = 2015:2017)
+data_two_sites <- get_wacl_data(site = c("kirb", "litp"), year = 2015:2017, 
+                                period = "hour")
 
 }
 
@@ -38,6 +42,6 @@ data_two_sites <- get_wacl_data(site = c("kirb", "litp"), year = 2015:2017)
 Stuart K. Grange
 }
 \seealso{
-\code{\link{get_wacl_sites()}}
+\code{\link{get_wacl_sites}}
 }
 

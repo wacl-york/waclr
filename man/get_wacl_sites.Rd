@@ -13,7 +13,8 @@ get_wacl_sites(json = FALSE)
 Data frame or pretty printed JSON with correct data types.
 }
 \description{
-Function to get WACL's sites.
+\code{\link{get_wacl_sites}} is used to get the monitoring sites which are 
+supported by \code{\link{get_wacl_data}}.
 }
 \examples{
 \dontrun{
@@ -29,5 +30,8 @@ get_wacl_sites(json = TRUE)
 }
 \author{
 Stuart K. Grange
+}
+\seealso{
+\code{\link{get_wacl_data}}
 }
 

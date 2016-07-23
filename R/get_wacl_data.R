@@ -7,15 +7,18 @@
 #' 
 #' @author Stuart K. Grange 
 #' 
-#' @param site Site(s) to get data for. Currently \code{"kirb"} and \code{"litp"} 
-#' are supported. 
+#' @param site Site(s) to get data for. Use \code{\link{get_wacl_sites}} to
+#' find sites which are available.
 #' 
-#' @param year Year(s) to get data for. 
+#' @param year Year(s) to get data for. A vector of integers.
 #' 
-#' @return Tidy data frame contains sites' monitoring data with correct data 
-#' types. 
+#' @param period Aggregation period to get data for. Default is \code{"hour"} 
+#' which is the only aggregation period currently supported. This will most 
+#' likely change in the future. 
 #' 
-#' @seealso \code{\link{get_wacl_sites()}}
+#' @return Data frame containing sites' monitoring data with correct data types. 
+#' 
+#' @seealso \code{\link{get_wacl_sites}}
 #' 
 #' @import dplyr
 #' 
@@ -23,22 +26,20 @@
 #' \dontrun{
 #' 
 #' # Get data for the kirb site for 2016
-#' data_kirb_2016 <- get_wacl_data(site = "kirb", year = 2016)
+#' data_kirb_2016 <- get_wacl_data(site = "kirb", year = 2016, period = "hour")
 #' 
 #' # Get data for two sites for many years
-#' data_two_sites <- get_wacl_data(site = c("kirb", "litp"), year = 2015:2017)
+#' data_two_sites <- get_wacl_data(site = c("kirb", "litp"), year = 2015:2017, 
+#'                                 period = "hour")
 #' 
 #' }
 #' 
 #' @export
-get_wacl_data <- function(site, year) {
+get_wacl_data <- function(site, year, period = "hour") {
   
   # Straight to the file
   url_base <- "https://github.com/skgrange/web.server/blob/master/data/wacl/"
   url_suffix <- "?raw=true"
-  
-  # Assign some useful things
-  temp_directory <- tempdir()
   
   # All combinations of site and year
   df_strings <- expand.grid(site, year, stringsAsFactors = FALSE)
@@ -53,19 +54,21 @@ get_wacl_data <- function(site, year) {
   
   # Download files, do not warn if missing.
   suppressWarnings(
-    download_file(urls, directory = temp_directory)
+    download_file(urls, directory = tempdir())
   )
   
   # Load files
-  file_list <- list.files(temp_directory, stringr::str_c(site, collapse = "|"), 
+  file_list <- list.files(tempdir(), stringr::str_c(site, collapse = "|"), 
                           full.names = TRUE)
   
-  if (length(file_list) == 0)
-    stop("No data could be found.", call. = FALSE)
+  # Check
+  if (length(file_list) == 0) stop("No data could be found.", call. = FALSE)
   
+  # Load data
   df <- plyr::ldply(file_list, read.csv, stringsAsFactors = FALSE)
   
-  # Trash files
+  # Trash files, needed if function is used multiple times during the same 
+  # session
   invisible(
     file.remove(file_list)
   )
