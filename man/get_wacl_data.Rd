@@ -24,6 +24,10 @@ and not validated or ratified. \code{get_wacl_data} will attempt to find any
 data with site and year combinations which are used, but this does not 
 guarantee that these data are available.
 }
+\details{
+This function may return different table formats depending on the \code{period}
+argument.
+}
 \examples{
 \dontrun{
 
@@ -41,6 +45,6 @@ data_two_sites <- get_wacl_data(site = c("kirb", "litp"), year = 2015:2017,
 Stuart K. Grange
 }
 \seealso{
-\code{\link{get_wacl_sites}}
+\code{\link{get_wacl_sites}}, \code{\link{get_wacl_processes}}
 }
 

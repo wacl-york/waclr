@@ -5,6 +5,9 @@
 #' data with site and year combinations which are used, but this does not 
 #' guarantee that these data are available.
 #' 
+#' This function may return different table formats depending on the \code{period}
+#' argument. 
+#' 
 #' @author Stuart K. Grange 
 #' 
 #' @param site Site(s) to get data for. Use \code{\link{get_wacl_sites}} to
@@ -17,7 +20,7 @@
 #' 
 #' @return Data frame containing sites' monitoring data with correct data types. 
 #' 
-#' @seealso \code{\link{get_wacl_sites}}
+#' @seealso \code{\link{get_wacl_sites}}, \code{\link{get_wacl_processes}}
 #' 
 #' @import dplyr
 #' 
