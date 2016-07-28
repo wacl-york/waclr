@@ -39,7 +39,7 @@ data_sites %>%
 The site which is desired is Kirby Misperton (site code `kirb`). The site code is used in `get_wacl_data`:
 
 ```
-# Get data for two years for Kirby Misperton
+# Get hourly data for two years for Kirby Misperton
 data_kirb <- get_wacl_data(site = "kirb", year = 2016:2017, period = "hour")
 ```
 

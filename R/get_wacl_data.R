@@ -12,9 +12,8 @@
 #' 
 #' @param year Year(s) to get data for. A vector of integers.
 #' 
-#' @param period Aggregation period to get data for. Default is \code{"hour"} 
-#' which is the only aggregation period currently supported. This will most 
-#' likely change in the future. 
+#' @param period Aggregation period to get data for. Default is \code{"hour"}.
+#' \code{"source"} can be used to get "source" data. 
 #' 
 #' @return Data frame containing sites' monitoring data with correct data types. 
 #' 
@@ -25,10 +24,10 @@
 #' @examples 
 #' \dontrun{
 #' 
-#' # Get data for the kirb site for 2016
+#' # Get hourly data for the kirb site for 2016
 #' data_kirb_2016 <- get_wacl_data(site = "kirb", year = 2016, period = "hour")
 #' 
-#' # Get data for two sites for many years
+#' # Get hourly data for two sites for many years
 #' data_two_sites <- get_wacl_data(site = c("kirb", "litp"), year = 2015:2017, 
 #'                                 period = "hour")
 #' 
@@ -47,25 +46,26 @@ get_wacl_data <- function(site, year, period = "hour") {
   
   # Buld url strings
   file_names <- stringr::str_c(df_strings$year, "_", df_strings$site, 
-                               "_hourly_data.csv.bz2")
+                               "_", period, "_data.csv.bz2")
   
   # Add base and suffix
   urls <- stringr::str_c(url_base, file_names, url_suffix)
+  files <- basename(urls)
+  files <- stringr::str_replace_all(files, "\\?raw=true", "")
   
   # Download files, do not warn if missing.
   suppressWarnings(
-    download_file(urls, directory = tempdir())
+    download_file(urls, directory = tempdir(), file_output = files)
   )
   
   # Load files
-  file_list <- list.files(tempdir(), stringr::str_c(site, collapse = "|"), 
-                          full.names = TRUE)
+  file_list <- list.files(tempdir(), files, full.names = TRUE)
   
   # Check
   if (length(file_list) == 0) stop("No data could be found.", call. = FALSE)
   
   # Load data
-  df <- plyr::ldply(file_list, read.csv, stringsAsFactors = FALSE)
+  df <- plyr::ldply(file_list, readr::read_csv, progress = FALSE)
   
   # Trash files, needed if function is used multiple times during the same 
   # session
@@ -73,12 +73,14 @@ get_wacl_data <- function(site, year, period = "hour") {
     file.remove(file_list)
   )
   
-  # Transform
-  df <- df %>% 
-    mutate(date = lubridate::ymd_hms(date, tz = "UTC"),
-           date_end = lubridate::ymd_hms(date_end, tz = "UTC"))
+  # Parse dates
+  df$date <- lubridate::ymd_hms(df$date, tz = "UTC")
   
-  # Return
-  df
+  # Sometimes not present in source data
+  if (any(grepl("date_end", names(df))))
+    df$date_end <- lubridate::ymd_hms(df$date_end, tz = "UTC")
+  
+  # Return, standard data frame
+  data.frame(df)
   
 }

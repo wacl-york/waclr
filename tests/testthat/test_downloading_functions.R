@@ -13,9 +13,16 @@ test_that("Processes", {
 
 })
 
-test_that("Observations", {
+test_that("Observations, hourly", {
   
-  data_fracking <- get_wacl_data(c("kirb", "litp"), year = 2016)
+  data_fracking <- get_wacl_data(c("kirb", "litp"), year = 2016, period = "hour")
+  expect_equal(class(data_fracking), "data.frame")
+  
+})
+
+test_that("Observations, source", {
+  
+  data_fracking <- get_wacl_data(c("kirb", "litp"), year = 2016, period = "source")
   expect_equal(class(data_fracking), "data.frame")
   
 })

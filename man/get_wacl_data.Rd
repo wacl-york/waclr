@@ -12,9 +12,8 @@ find sites which are available.}
 
 \item{year}{Year(s) to get data for. A vector of integers.}
 
-\item{period}{Aggregation period to get data for. Default is \code{"hour"} 
-which is the only aggregation period currently supported. This will most 
-likely change in the future.}
+\item{period}{Aggregation period to get data for. Default is \code{"hour"}.
+\code{"source"} can be used to get "source" data.}
 }
 \value{
 Data frame containing sites' monitoring data with correct data types.
@@ -28,10 +27,10 @@ guarantee that these data are available.
 \examples{
 \dontrun{
 
-# Get data for the kirb site for 2016
+# Get hourly data for the kirb site for 2016
 data_kirb_2016 <- get_wacl_data(site = "kirb", year = 2016, period = "hour")
 
-# Get data for two sites for many years
+# Get hourly data for two sites for many years
 data_two_sites <- get_wacl_data(site = c("kirb", "litp"), year = 2015:2017, 
                                 period = "hour")
 
