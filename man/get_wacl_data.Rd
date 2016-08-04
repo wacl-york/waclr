@@ -20,9 +20,9 @@ Data frame containing sites' monitoring data with correct data types.
 }
 \description{
 The data imported by this function should always be regarded as preliminary 
-and not validated or ratified. \code{get_wacl_data} will attempt to find any
-data with site and year combinations which are used, but this does not 
-guarantee that these data are available.
+and is often not validated or ratified. \code{get_wacl_data} will attempt to 
+find any data with site and year combinations which are used, but this does 
+not guarantee that these data are available.
 }
 \details{
 This function may return different table formats depending on the \code{period}
@@ -37,6 +37,9 @@ data_kirb_2016 <- get_wacl_data(site = "kirb", year = 2016, period = "hour")
 # Get hourly data for two sites for many years
 data_two_sites <- get_wacl_data(site = c("kirb", "litp"), year = 2015:2017, 
                                 period = "hour")
+                                
+# Get source data, one-minute data for a site
+data_kirb_source <- get_wacl_data(site = "kirb", year = 2016, period = "source")
 
 }
 

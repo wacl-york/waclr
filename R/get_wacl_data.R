@@ -1,9 +1,9 @@
 #' Function to get data for WACL (Wolfson Atmospheric Laboratory) uses.
 #' 
 #' The data imported by this function should always be regarded as preliminary 
-#' and not validated or ratified. \code{get_wacl_data} will attempt to find any
-#' data with site and year combinations which are used, but this does not 
-#' guarantee that these data are available.
+#' and is often not validated or ratified. \code{get_wacl_data} will attempt to 
+#' find any data with site and year combinations which are used, but this does 
+#' not guarantee that these data are available.
 #' 
 #' This function may return different table formats depending on the \code{period}
 #' argument. 
@@ -33,6 +33,9 @@
 #' # Get hourly data for two sites for many years
 #' data_two_sites <- get_wacl_data(site = c("kirb", "litp"), year = 2015:2017, 
 #'                                 period = "hour")
+#'                                 
+#' # Get source data, one-minute data for a site
+#' data_kirb_source <- get_wacl_data(site = "kirb", year = 2016, period = "source")
 #' 
 #' }
 #' 
@@ -68,7 +71,9 @@ get_wacl_data <- function(site, year, period = "hour") {
   if (length(file_list) == 0) stop("No data could be found.", call. = FALSE)
   
   # Load data
-  df <- plyr::ldply(file_list, readr::read_csv, progress = FALSE)
+  suppressMessages(
+    df <- plyr::ldply(file_list, readr::read_csv, progress = FALSE)
+  )
   
   # Trash files, needed if function is used multiple times during the same 
   # session
