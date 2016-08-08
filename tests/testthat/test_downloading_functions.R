@@ -26,3 +26,10 @@ test_that("Observations, source", {
   expect_equal(class(data_fracking), "data.frame")
   
 })
+
+test_that("Invalidations", {
+  
+  data_invalidations <- get_wacl_invalidations()
+  expect_equal(class(data_invalidations), "data.frame")
+  
+})

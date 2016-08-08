@@ -1,7 +1,8 @@
-#' Function to get WACL's sites.  
+#' Function to get WACL's invalidations.   
 #' 
-#' \code{\link{get_wacl_sites}} is used to get the monitoring sites which are 
-#' supported by \code{\link{get_wacl_data}}. 
+#' \code{\link{get_wacl_invalidations}} is used to get date ranges where data 
+#' is considered invlid. The invalidation table and ranges is dynamic so may 
+#' change at anytime. 
 #' 
 #' @param json Should the return be in JSON format? Default is \code{FALSE}. 
 #' 
@@ -9,25 +10,26 @@
 #' 
 #' @author Stuart K. Grange
 #' 
-#' @seealso \code{\link{get_wacl_data}}
+#' @seealso \code{\link{get_wacl_data}}, \code{\link{get_wacl_sites}},
+#' \code{\link{get_wacl_processes}}
 #' 
 #' @examples 
 #' \dontrun{
 #' 
 #' # Get sites
-#' data_sites <- get_wacl_sites()
+#' data_invalidations <- get_wacl_invalidations()
 #' 
 #' # Or print as json
-#' get_wacl_sites(json = TRUE)
+#' get_wacl_invalidations(json = TRUE)
 #' 
 #' }
 #' 
 #' @export
-get_wacl_sites <- function(json = FALSE) {
+get_wacl_invalidations <- function(json = FALSE) {
   
   # Straight to the file
   url_base <- "https://github.com/skgrange/web.server/blob/master/data/wacl/"
-  file_name <- "wacl_sites.csv.bz2"
+  file_name <- "wacl_invalidations.csv.bz2"
   url_suffix <- "?raw=true"
   
   # Concatenate
@@ -40,8 +42,8 @@ get_wacl_sites <- function(json = FALSE) {
   df <- read.csv(file.path(tempdir(), basename(url)), stringsAsFactors = FALSE)
   
   # Parse dates
-  df$date_start <- lubridate::ymd_hms(df$date_start, quiet = TRUE)
-  df$date_end <- lubridate::ymd_hms(df$date_end, quiet = TRUE)
+  df$date_start <- lubridate::ymd_hms(df$date_start, tz = "UTC")
+  df$date_end <- lubridate::ymd_hms(df$date_end, tz = "UTC")
   
   # To json, not a helpful name here
   if (json) df <- jsonlite::toJSON(df, pretty = TRUE)
