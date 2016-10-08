@@ -8,12 +8,15 @@ get_wacl_data(site, year, period = "hour")
 }
 \arguments{
 \item{site}{Site(s) to get data for. Use \code{\link{get_wacl_sites}} to
-find sites which are available.}
+find sites which are available. \code{site} is a site code such as 
+\code{"kirb"}.}
 
 \item{year}{Year(s) to get data for. A vector of integers.}
 
 \item{period}{Aggregation period to get data for. Default is \code{"hour"}.
-\code{"source"} can be used to get "source" data.}
+\code{"source"} can be used to get "source" data. Beware that the importing 
+of source data can be slow because it is common for sites to have several 
+million observations for a year.}
 }
 \value{
 Data frame containing sites' monitoring data with correct data types.
@@ -25,8 +28,8 @@ find any data with site and year combinations which are used, but this does
 not guarantee that these data are available.
 }
 \details{
-This function may return different table formats depending on the \code{period}
-argument.
+This function may return different table (data frane) formats depending on 
+the \code{period} argument.
 }
 \examples{
 \dontrun{

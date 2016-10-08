@@ -5,18 +5,21 @@
 #' find any data with site and year combinations which are used, but this does 
 #' not guarantee that these data are available.
 #' 
-#' This function may return different table formats depending on the \code{period}
-#' argument. 
+#' This function may return different table (data frane) formats depending on 
+#' the \code{period} argument. 
 #' 
 #' @author Stuart K. Grange 
 #' 
 #' @param site Site(s) to get data for. Use \code{\link{get_wacl_sites}} to
-#' find sites which are available.
+#' find sites which are available. \code{site} is a site code such as 
+#' \code{"kirb"}. 
 #' 
 #' @param year Year(s) to get data for. A vector of integers.
 #' 
 #' @param period Aggregation period to get data for. Default is \code{"hour"}.
-#' \code{"source"} can be used to get "source" data. 
+#' \code{"source"} can be used to get "source" data. Beware that the importing 
+#' of source data can be slow because it is common for sites to have several 
+#' million observations for a year. 
 #' 
 #' @return Data frame containing sites' monitoring data with correct data types. 
 #' 
@@ -65,7 +68,8 @@ get_wacl_data <- function(site, year, period = "hour") {
   )
   
   # Load files
-  file_list <- list.files(tempdir(), files, full.names = TRUE)
+  file_list <- list.files(tempdir(), stringr::str_c(files, collapse = "|"), 
+                          full.names = TRUE)
   
   # Check
   if (length(file_list) == 0) stop("No data could be found.", call. = FALSE)
