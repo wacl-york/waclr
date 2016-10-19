@@ -1,6 +1,6 @@
 # **waclr**
 
-[![Build Status](https://travis-ci.org/skgrange/waclr.svg?branch=master)](https://travis-ci.org/skgrange/waclr)
+[![Build Status](https://travis-ci.org/wacl-york/waclr.svg?branch=master)](https://travis-ci.org/skgrange/waclr)
 
 **waclr** is an R package for doing things at the Wolfson Atmospheric Chemistry Laboratory (WACL). 
 
@@ -10,7 +10,7 @@ To install the development version the [**devtools**](https://github.com/hadley/
 
 ```
 # Install waclr
-devtools::install_github("skgrange/waclr")
+devtools::install_github("wacl-york/waclr")
 ```
 
 ## Uses
