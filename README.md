@@ -1,6 +1,6 @@
 # **waclr**
 
-[![Build Status](https://travis-ci.org/wacl-york/waclr.svg?branch=master)](https://travis-ci.org/skgrange/waclr)
+[![Build Status](https://travis-ci.org/wacl-york/waclr.svg?branch=master)](https://travis-ci.org/wacl-york/waclr)
 
 **waclr** is an R package for doing things at the Wolfson Atmospheric Chemistry Laboratory (WACL). 
 
