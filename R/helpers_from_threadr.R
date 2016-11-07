@@ -93,3 +93,12 @@ directory_creator <- function(x, quiet) {
   }
   
 }
+
+
+str_drop_xml_tags <- function(string) {
+  
+  string <- stringr::str_replace_all(string, "<.*?>", "")
+  string <- stringr::str_trim(string)
+  string
+  
+}

@@ -4,14 +4,15 @@
 \alias{get_wacl_data}
 \title{Function to get data for WACL (Wolfson Atmospheric Laboratory) uses.}
 \usage{
-get_wacl_data(site, year, period = "hour")
+get_wacl_data(site, year = 2015:2018, period = "hour")
 }
 \arguments{
 \item{site}{Site(s) to get data for. Use \code{\link{get_wacl_sites}} to
 find sites which are available. \code{site} is a site code such as 
 \code{"kirb"}.}
 
-\item{year}{Year(s) to get data for. A vector of integers.}
+\item{year}{Year(s) to get data for. A vector of integers, default is 
+\code{2015:2018}.}
 
 \item{period}{Aggregation period to get data for. Default is \code{"hour"}.
 \code{"source"} can be used to get "source" data. Beware that the importing 
@@ -23,16 +24,19 @@ Data frame containing sites' monitoring data with correct data types.
 }
 \description{
 The data imported by this function should always be regarded as preliminary 
-and is often not validated or ratified. \code{get_wacl_data} will attempt to 
-find any data with site and year combinations which are used, but this does 
-not guarantee that these data are available.
+and are often not validated or ratified. \code{get_wacl_data} will attempt to 
+find any data with the site and year combinations used, but this does not 
+guarantee that these data are available.
 }
 \details{
-This function may return different table (data frane) formats depending on 
+This function will return different table (data frame) formats depending on 
 the \code{period} argument.
 }
 \examples{
 \dontrun{
+
+# Get hourly data for a single site with default years
+data_litp <- get_wacl_data(site = "litp")
 
 # Get hourly data for the kirb site for 2016
 data_kirb_2016 <- get_wacl_data(site = "kirb", year = 2016, period = "hour")

@@ -1,11 +1,11 @@
 #' Function to get data for WACL (Wolfson Atmospheric Laboratory) uses.
 #' 
 #' The data imported by this function should always be regarded as preliminary 
-#' and is often not validated or ratified. \code{get_wacl_data} will attempt to 
-#' find any data with site and year combinations which are used, but this does 
-#' not guarantee that these data are available.
+#' and are often not validated or ratified. \code{get_wacl_data} will attempt to 
+#' find any data with the site and year combinations used, but this does not 
+#' guarantee that these data are available.
 #' 
-#' This function may return different table (data frane) formats depending on 
+#' This function will return different table (data frame) formats depending on 
 #' the \code{period} argument. 
 #' 
 #' @author Stuart K. Grange 
@@ -14,7 +14,8 @@
 #' find sites which are available. \code{site} is a site code such as 
 #' \code{"kirb"}. 
 #' 
-#' @param year Year(s) to get data for. A vector of integers.
+#' @param year Year(s) to get data for. A vector of integers, default is 
+#' \code{2015:2018}. 
 #' 
 #' @param period Aggregation period to get data for. Default is \code{"hour"}.
 #' \code{"source"} can be used to get "source" data. Beware that the importing 
@@ -30,6 +31,9 @@
 #' @examples 
 #' \dontrun{
 #' 
+#' # Get hourly data for a single site with default years
+#' data_litp <- get_wacl_data(site = "litp")
+#' 
 #' # Get hourly data for the kirb site for 2016
 #' data_kirb_2016 <- get_wacl_data(site = "kirb", year = 2016, period = "hour")
 #' 
@@ -43,7 +47,7 @@
 #' }
 #' 
 #' @export
-get_wacl_data <- function(site, year, period = "hour") {
+get_wacl_data <- function(site, year = 2015:2018, period = "hour") {
   
   # Straight to the file
   url_base <- "https://github.com/skgrange/web.server/blob/master/data/wacl/"

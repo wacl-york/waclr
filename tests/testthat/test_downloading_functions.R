@@ -36,3 +36,14 @@ test_that("Invalidations", {
   expect_equal(class(data_invalidations), "data.frame")
   
 })
+
+test_that("European data", {
+  
+  data_ch <- get_europe_data("ch0038a")
+  expect_equal(class(data_ch), "data.frame")
+  expect_gt(nrow(data_ch), 5)
+  
+  data_european_sites <- get_europe_sites()
+  expect_equal(class(data_european_sites), "data.frame")
+  
+})
