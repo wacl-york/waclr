@@ -1,4 +1,5 @@
 # Pulled from threadr package
+# No export
 download_file <- function(url, directory = NA, file_output = NA, quiet = TRUE, 
                           progress = "none") {
   
@@ -34,6 +35,7 @@ download_file <- function(url, directory = NA, file_output = NA, quiet = TRUE,
 }
 
 
+# Different than the threadr version with the os work
 # No export
 download_to_directory <- function(df_map, quiet) {
   
@@ -111,5 +113,6 @@ str_drop_xml_tags <- function(string) {
   string
   
 }
+
 
 os_type <- function() stringr::str_to_lower(unname(Sys.info()["sysname"]))
