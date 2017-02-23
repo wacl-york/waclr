@@ -37,13 +37,13 @@ test_that("Invalidations", {
   
 })
 
-test_that("European data", {
-  
-  data_ch <- get_europe_data("ch0038a")
-  expect_equal(class(data_ch), "data.frame")
-  expect_gt(nrow(data_ch), 5)
-  
-  data_european_sites <- get_europe_sites()
-  expect_equal(class(data_european_sites), "data.frame")
-  
-})
+# test_that("European data", {
+#   
+#   data_ch <- get_europe_data("ch0038a")
+#   expect_equal(class(data_ch), "data.frame")
+#   expect_gt(nrow(data_ch), 5)
+#   
+#   data_european_sites <- get_europe_sites()
+#   expect_equal(class(data_european_sites), "data.frame")
+#   
+# })

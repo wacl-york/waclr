@@ -43,7 +43,16 @@ download_to_directory <- function(df_map, quiet) {
   # Download file
   tryCatch({
     
-    download.file(df_map$url, file, quiet = quiet)
+    if (os_type() == "windows") {
+      
+      download.file(url = df_map$url, destfile = file, quiet = quiet, 
+                    mode = "wb")
+        
+    } else {
+      
+      download.file(url = df_map$url, destfile = file, quiet = quiet)
+      
+    }
     
   }, warning = function(w) {
     
@@ -102,3 +111,5 @@ str_drop_xml_tags <- function(string) {
   string
   
 }
+
+os_type <- function() stringr::str_to_lower(unname(Sys.info()["sysname"]))

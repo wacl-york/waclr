@@ -51,10 +51,9 @@ data_kirb_source <- get_wacl_data(site = "kirb", year = 2016, period = "source")
 }
 
 }
-\author{
-Stuart K. Grange
-}
 \seealso{
 \code{\link{get_wacl_sites}}, \code{\link{get_wacl_processes}}
 }
-
+\author{
+Stuart K. Grange
+}

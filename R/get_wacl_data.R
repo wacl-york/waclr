@@ -86,7 +86,9 @@ get_wacl_data <- function(site, year = 2015:2018, period = "hour") {
   # Trash files, needed if function is used multiple times during the same 
   # session
   invisible(
-    file.remove(file_list)
+    suppressWarnings(
+      file.remove(file_list)
+    )
   )
   
   # Parse dates

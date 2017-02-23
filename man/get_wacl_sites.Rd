@@ -28,10 +28,9 @@ get_wacl_sites(json = TRUE)
 }
 
 }
-\author{
-Stuart K. Grange
-}
 \seealso{
 \code{\link{get_wacl_data}}
 }
-
+\author{
+Stuart K. Grange
+}

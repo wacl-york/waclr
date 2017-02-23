@@ -29,11 +29,10 @@ get_wacl_invalidations(json = TRUE)
 }
 
 }
-\author{
-Stuart K. Grange
-}
 \seealso{
 \code{\link{get_wacl_data}}, \code{\link{get_wacl_sites}},
 \code{\link{get_wacl_processes}}
 }
-
+\author{
+Stuart K. Grange
+}

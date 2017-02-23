@@ -27,12 +27,14 @@ get_wacl_processes <- function(json = FALSE) {
   
   # Concatenate
   url <- stringr::str_c(url_base, file_name, url_suffix)
+  file_temp <- basename(url)
+  file_temp <- stringr::str_replace(file_temp, "\\?raw=true$", "")
   
-  # Get files
-  download_file(url, directory = tempdir())
+  # Download file
+  download_file(url, directory = tempdir(), file_output = file_temp)
   
-  # Load file
-  df <- read.csv(file.path(tempdir(), basename(url)), stringsAsFactors = FALSE)
+  # Load downloaded data
+  df <- read.csv(file.path(tempdir(), file_temp), stringsAsFactors = FALSE)
   
   # Parse dates
   df$date_start <- lubridate::ymd_hms(df$date_start, tz = "UTC", quiet = TRUE)
