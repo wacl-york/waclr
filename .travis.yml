@@ -6,3 +6,5 @@ r_binary_packages:
   - Rcpp
   - testthat
 
+apt_packages:
+  - r-cran-ncdf4
