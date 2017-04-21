@@ -32,21 +32,22 @@ tidy_faam_netcdf <- function(file) {
 }
 
 
-tidy_faam_netcdf_worker <- function(file) {
+tidy_faam_netcdf_worker <- function(file, tz = "UTC") {
   
   # Connect to file
   ncdf <- ncdf4::nc_open(file)
   
-  # Get variables in netcdf file
-  ncdf_variables <- names(ncdf$var)
-  
   # Extract date from netcdf file, not within the variable structure
-  date_ncdf <- extract_date(ncdf)
+  date_ncdf <- extract_date(ncdf, tz = tz)
+  
+  # Get variables in netcdf file
+  variables <- names(ncdf$var)
   
   # Extract all variables in netcdf file
-  df <- plyr::llply(ncdf_variables, function(x) 
-    extract_variable(ncdf, x)) %>% 
-    do.call(cbind, .)
+  list_variables <- lapply(variables, function(x) extract_variable(ncdf, x))
+  
+  # Bind to form a single data frame
+  df <- do.call(cbind, list_variables)
   
   # Add date to data frame and arrange variable order
   df <- df %>% 
@@ -64,9 +65,8 @@ tidy_faam_netcdf_worker <- function(file) {
 }
 
 
-
 # Define the functions
-extract_date <- function(ncdf, tz = "UTC") {
+extract_date <- function(ncdf, tz) {
   
   # Get date piece
   date <- ncdf$dim$Time
@@ -87,10 +87,10 @@ extract_date <- function(ncdf, tz = "UTC") {
 }
 
 
-extract_variable <- function(ncdf, name) {
+extract_variable <- function(ncdf, variable) {
   
-  # Get variable
-  value <- ncdf4::ncvar_get(ncdf, name)
+  # Get variable's values
+  value <- ncdf4::ncvar_get(ncdf, variable)
   
   # Make a data frame
   df <- data.frame(
@@ -99,7 +99,7 @@ extract_variable <- function(ncdf, name) {
   )
   
   # Give name
-  names(df) <- name
+  names(df) <- variable
   
   return(df)
   
