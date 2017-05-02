@@ -8,3 +8,5 @@ r_binary_packages:
 
 apt_packages:
   - r-cran-ncdf4
+  - libnetcdf-dev
+  - netcdf-bin
