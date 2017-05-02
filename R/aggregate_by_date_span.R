@@ -1,16 +1,20 @@
-#' Aggregate Met Data from date Span
+#' Aggregate meteorological data from date span. 
 #' 
 #' Given averaged data with span ranges in \code{"date_start"} and 
 #' \code{"date_end"} columns and met data with "date" column, average met data 
 #' over span range and append to data frame
 #'  
-#' @param df dataframe containing span range
-#' @param df_met dataframe containg met data
-#' @param progress supply "time" for progress bar
+#' @param df Data frame containing span range. 
 #' 
-#' @author Will Drysdale
+#' @param df_met Data frame containg met data. 
 #' 
-#' @return Data frame
+#' @param warn Should the function give warnings? 
+#' 
+#' @param progress Type of progress bar. Supply "time" for progress bar. 
+#' 
+#' @author Will Drysdale and Stuart K. Grange
+#' 
+#' @return Data frame. 
 #' 
 #' @examples 
 #' \dontrun{
@@ -21,16 +25,16 @@
 #' }
 #'  
 #' @export
-aggregate_by_date_span <- function(df, df_met, progress = "none") {
+aggregate_by_date_span <- function(df, df_met, warn = TRUE, progress = "none") {
   
   # Do row-wise
   plyr::adply(df, 1, function(x) 
-    aggregate_by_date_span_worker(x, df_met), .progress = progress)
+    aggregate_by_date_span_worker(x, df_met, warn), .progress = progress)
   
 }
 
 
-aggregate_by_date_span_worker <- function(df, df_met) {
+aggregate_by_date_span_worker <- function(df, df_met, warn) {
   
   # Get dates
   date_start <- df$date_start[1]
@@ -42,23 +46,27 @@ aggregate_by_date_span_worker <- function(df, df_met) {
   # Aggregate
   if (nrow(df_met_filter) >= 1) {
     
-    # Do it
+    # Do
     df_met_filter_agg <- openair::timeAverage(df_met_filter, avg.time = "year")
     
   } else {
     
-    warning(paste("Date start and end do not make sense, skipping row: ", 
-                  row.names(df), " or no met data exists", sep = ""))
+    # Raise warning
+    if (warn)
+      warning(stringr::str_c("Skipping row: ", row.names(df)), call. = FALSE)
     
-    # Break here 
-    return(data.frame())
+    # Reassign
+    df_met_filter_agg <- df_met_filter
+    
+    # Ensure there is is an observation even if missing
+    df_met_filter_agg[1, ] <- NA
     
   }
   
-  # drop unneeded date 
+  # Drop unneeded date
   df_met_filter_agg$date <- NULL
   
-  # Join
+  # Bind
   df <- dplyr::bind_cols(df, df_met_filter_agg)
   
   return(df)

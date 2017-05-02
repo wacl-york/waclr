@@ -2,19 +2,21 @@
 % Please edit documentation in R/aggregate_by_date_span.R
 \name{aggregate_by_date_span}
 \alias{aggregate_by_date_span}
-\title{Aggregate Met Data from date Span}
+\title{Aggregate meteorological data from date span.}
 \usage{
-aggregate_by_date_span(df, df_met, progress = "none")
+aggregate_by_date_span(df, df_met, warn = TRUE, progress = "none")
 }
 \arguments{
-\item{df}{dataframe containing span range}
+\item{df}{Data frame containing span range.}
 
-\item{df_met}{dataframe containg met data}
+\item{df_met}{Data frame containg met data.}
 
-\item{progress}{supply "time" for progress bar}
+\item{warn}{Should the function give warnings?}
+
+\item{progress}{Type of progress bar. Supply "time" for progress bar.}
 }
 \value{
-Data frame
+Data frame.
 }
 \description{
 Given averaged data with span ranges in \code{"date_start"} and 
@@ -31,5 +33,5 @@ data_all <- aggregate_by_date_span(data_gc, data_met)
  
 }
 \author{
-Will Drysdale
+Will Drysdale and Stuart K. Grange
 }
