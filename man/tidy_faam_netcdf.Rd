@@ -11,7 +11,7 @@ tidy_faam_netcdf(file)
 \item{file}{File names of FAAM \code{NetCDF} files.}
 }
 \value{
-Data frame
+Data frame.
 }
 \description{
 Function to transform a \code{NetCDF} file from FAAM activites to a data 

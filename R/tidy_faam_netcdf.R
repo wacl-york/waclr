@@ -5,9 +5,7 @@
 #' 
 #' @author Stuart K. Grange
 #' 
-#' @return Data frame
-#' 
-#' @import dplyr
+#' @return Data frame. 
 #' 
 #' @examples 
 #' \dontrun{
@@ -24,10 +22,10 @@
 #' @export
 tidy_faam_netcdf <- function(file) {
   
-  data_frame(file = file) %>% 
-    rowwise() %>% 
-    do(tidy_faam_netcdf_worker(.$file)) %>% 
-    ungroup()
+  dplyr::data_frame(file = file) %>% 
+    dplyr::rowwise() %>% 
+    dplyr::do(tidy_faam_netcdf_worker(.$file)) %>% 
+    dplyr::ungroup()
   
 }
 
@@ -51,14 +49,14 @@ tidy_faam_netcdf_worker <- function(file, tz = "UTC") {
   
   # Add date to data frame and arrange variable order
   df <- df %>% 
-    mutate(file = basename(file),
-           date = date_ncdf) %>% 
-    select(file,
-           date, 
-           starts_with("lat_", ignore.case = TRUE),
-           starts_with("lon_", ignore.case = TRUE),
-           starts_with("alt_", ignore.case = TRUE),
-           everything())
+    dplyr::mutate(file = basename(file),
+                  date = date_ncdf) %>% 
+    dplyr::select(file,
+                  date, 
+                  starts_with("lat_", ignore.case = TRUE),
+                  starts_with("lon_", ignore.case = TRUE),
+                  starts_with("alt_", ignore.case = TRUE),
+                  dplyr::everything())
   
   return(df)
   

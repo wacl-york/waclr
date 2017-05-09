@@ -26,8 +26,6 @@
 #' 
 #' @seealso \code{\link{get_wacl_sites}}, \code{\link{get_wacl_processes}}
 #' 
-#' @import dplyr
-#' 
 #' @examples 
 #' \dontrun{
 #' 
