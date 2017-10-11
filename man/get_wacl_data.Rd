@@ -23,12 +23,15 @@ million observations for a year.}
 Data frame containing sites' monitoring data with correct data types.
 }
 \description{
+This function is now defunct. Please access offical data from ceda 
+http://www.ceda.ac.uk/.
+}
+\details{
 The data imported by this function should always be regarded as preliminary 
 and are often not validated or ratified. \code{get_wacl_data} will attempt to 
 find any data with the site and year combinations used, but this does not 
 guarantee that these data are available.
-}
-\details{
+
 This function will return different table (data frame) formats depending on 
 the \code{period} argument.
 }

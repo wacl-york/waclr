@@ -13,6 +13,10 @@ get_wacl_sites(json = FALSE)
 Data frame or pretty printed JSON with correct data types.
 }
 \description{
+This function is now defunct. Please access offical data from ceda 
+http://www.ceda.ac.uk/.
+}
+\details{
 \code{\link{get_wacl_sites}} is used to get the monitoring sites which are 
 supported by \code{\link{get_wacl_data}}.
 }

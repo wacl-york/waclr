@@ -1,5 +1,8 @@
 #' Function to get data for WACL (Wolfson Atmospheric Laboratory) uses.
 #' 
+#' This function is now defunct. Please access offical data from ceda 
+#' http://www.ceda.ac.uk/. 
+#' 
 #' The data imported by this function should always be regarded as preliminary 
 #' and are often not validated or ratified. \code{get_wacl_data} will attempt to 
 #' find any data with the site and year combinations used, but this does not 
@@ -46,6 +49,10 @@
 #' 
 #' @export
 get_wacl_data <- function(site, year = 2015:2018, period = "hour") {
+  
+  # This function will no longer work
+  message <- "This function is now defunct.\nPlease access offical data from ceda: http://www.ceda.ac.uk/"
+  .Defunct(package = "waclr", msg = message)
   
   # Straight to the file
   url_base <- "https://github.com/skgrange/web.server/blob/master/data/wacl/"

@@ -1,5 +1,8 @@
 #' Function to get WACL's invalidations.   
 #' 
+#' This function is now defunct. Please access offical data from ceda 
+#' http://www.ceda.ac.uk/. 
+#' 
 #' \code{\link{get_wacl_invalidations}} is used to get date ranges where data 
 #' is considered invlid. The invalidation table and ranges is dynamic so may 
 #' change at anytime. 
@@ -26,6 +29,10 @@
 #' 
 #' @export
 get_wacl_invalidations <- function(json = FALSE) {
+  
+  # This function will no longer work
+  message <- "This function is now defunct.\nPlease access offical data from ceda: http://www.ceda.ac.uk/"
+  .Defunct(package = "waclr", msg = message)
   
   # Straight to the file
   url_base <- "https://github.com/skgrange/web.server/blob/master/data/wacl/"

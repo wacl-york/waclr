@@ -13,6 +13,10 @@ get_wacl_invalidations(json = FALSE)
 Data frame or pretty printed JSON with correct data types.
 }
 \description{
+This function is now defunct. Please access offical data from ceda 
+http://www.ceda.ac.uk/.
+}
+\details{
 \code{\link{get_wacl_invalidations}} is used to get date ranges where data 
 is considered invlid. The invalidation table and ranges is dynamic so may 
 change at anytime.

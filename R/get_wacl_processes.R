@@ -1,5 +1,8 @@
 #' Function to get WACL's processes. 
 #' 
+#' This function is now defunct. Please access offical data from ceda 
+#' http://www.ceda.ac.uk/. 
+#' 
 #' @param json Should the return be in JSON format? Default is \code{FALSE}. 
 #' 
 #' @return Data frame or JSON with correct data types. 
@@ -19,6 +22,10 @@
 #' 
 #' @export
 get_wacl_processes <- function(json = FALSE) {
+  
+  # This function will no longer work
+  message <- "This function is now defunct.\nPlease access offical data from ceda: http://www.ceda.ac.uk/"
+  .Defunct(package = "waclr", msg = message)
   
   # Straight to the file
   url_base <- "https://github.com/skgrange/web.server/blob/master/data/wacl/"

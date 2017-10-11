@@ -1,5 +1,8 @@
 #' Function to get WACL's sites.  
 #' 
+#' This function is now defunct. Please access offical data from ceda 
+#' http://www.ceda.ac.uk/. 
+#' 
 #' \code{\link{get_wacl_sites}} is used to get the monitoring sites which are 
 #' supported by \code{\link{get_wacl_data}}. 
 #' 
@@ -24,6 +27,10 @@
 #' 
 #' @export
 get_wacl_sites <- function(json = FALSE) {
+  
+  # This function will no longer work
+  message <- "This function is now defunct.\nPlease access offical data from ceda: http://www.ceda.ac.uk/"
+  .Defunct(package = "waclr", msg = message)
   
   # Straight to the file
   url_base <- "https://github.com/skgrange/web.server/blob/master/data/wacl/"

@@ -13,7 +13,8 @@ get_wacl_processes(json = FALSE)
 Data frame or JSON with correct data types.
 }
 \description{
-Function to get WACL's processes.
+This function is now defunct. Please access offical data from ceda 
+http://www.ceda.ac.uk/.
 }
 \examples{
 \dontrun{
