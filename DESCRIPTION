@@ -2,11 +2,11 @@ Package: waclr
 Type: Package
 Title: An R package for activities at Wolfson Atmospheric Chemistry Laboratory
     (WACL)
-Version: 0.1.0
-Date: 2017-10-11
-Authors@R: person("Stuart", "Grange", email = "skg511@york.ac.uk", 
+Version: 0.1.2
+Date: 2018-02-28
+Authors@R: person("Stuart", "Grange", email = "stuart.grange@york.ac.uk", 
     role = c("cre", "aut"))
-Maintainer: Stuart K. Grange <s.k.grange@gmail.com>
+Maintainer: Stuart K. Grange <stuart.grange@york.ac.uk>
 Description: An R package for activities at Wolfson Atmospheric Chemistry 
     Laboratory (WACL)
 URL: https://github.com/wacl-york/waclr
@@ -22,5 +22,6 @@ Imports:
     readr,
     testthat,
     ncdf4,
-    openair
+    openair,
+    purrr
 RoxygenNote: 6.0.1
