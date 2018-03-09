@@ -1,11 +1,13 @@
 #' Function to read Syft \code{.csv} files. 
 #' 
-#' The Syft instrument reports time with sub second accuracy. This is preserved 
-#' but to view this extra precision, set the \code{digits.secs} option. 
+#' @details The Syft instrument reports time with sub second accuracy. This is 
+#' preserved but to view this extra precision, set the \code{digits.secs} option. 
 #' 
 #' @author Stuart K. Grange
 #' 
 #' @param file Vector of Syft \code{.csv} file names. 
+#' 
+#' @param verbose Should the function give messages? 
 #' 
 #' @return Named list containing data frames. 
 #' 
@@ -33,10 +35,10 @@
 #' @seealso \code{\link{set_sub_second_option}}
 #' 
 #' @export
-read_syft_data <- function(file) {
+read_syft_data <- function(file, verbose = FALSE) {
   
   # Get units from files
-  list_tables <- purrr::map(file, read_syft_data_worker)
+  list_tables <- purrr::map(file, read_syft_data_worker, verbose = verbose)
   
   # Give names
   names(list_tables) <- basename(file)
@@ -46,7 +48,10 @@ read_syft_data <- function(file) {
 }
 
 
-read_syft_data_worker <- function(file) {
+read_syft_data_worker <- function(file, verbose) {
+  
+  # Message
+  if (verbose) message(str_date_formatted(), ": ", file)
   
   # Read as text
   text <- readLines(file, warn = FALSE)
