@@ -4,17 +4,22 @@
 \alias{read_syft_data}
 \title{Function to read Syft \code{.csv} files.}
 \usage{
-read_syft_data(file)
+read_syft_data(file, verbose = FALSE)
 }
 \arguments{
 \item{file}{Vector of Syft \code{.csv} file names.}
+
+\item{verbose}{Should the function give messages?}
 }
 \value{
 Named list containing data frames.
 }
 \description{
-The Syft instrument reports time with sub second accuracy. This is preserved 
-but to view this extra precision, set the \code{digits.secs} option.
+Function to read Syft \code{.csv} files.
+}
+\details{
+The Syft instrument reports time with sub second accuracy. This is 
+preserved but to view this extra precision, set the \code{digits.secs} option.
 }
 \examples{
 \dontrun{
