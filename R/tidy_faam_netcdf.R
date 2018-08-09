@@ -53,9 +53,9 @@ tidy_faam_netcdf_worker <- function(file, tz = "UTC") {
            date = date_ncdf) %>% 
     select(file,
            date, 
-           starts_with("lat_", ignore.case = TRUE),
-           starts_with("lon_", ignore.case = TRUE),
-           starts_with("alt_", ignore.case = TRUE),
+           dplyr::starts_with("lat_", ignore.case = TRUE),
+           dplyr::starts_with("lon_", ignore.case = TRUE),
+           dplyr::starts_with("alt_", ignore.case = TRUE),
            everything())
   
   return(df)
