@@ -4,18 +4,13 @@
 #' 
 #' @param date Date vector
 #' 
-#' @return Vector with a length of one. 
+#' @return Character vector with a length of one. 
 #' 
 #' @examples 
-#' \dontrun{
 #' 
 #' # A date vector
-#' time_zone(date_parsed)
-#' 
-#' # A variable in data frame
-#' time_zone(data_test$date)
-#' 
-#' }
+#' x <- lubridate::ymd_h("2018-05-05 11", tz = "Europe/Zurich")
+#' time_zone(x)
 #' 
 #' @export
 time_zone <- function(date) attr(date, "tzone")
@@ -35,8 +30,7 @@ time_zone <- function(date) attr(date, "tzone")
 #' @return A POSIXct vector with the length of x. 
 #' 
 #' @examples
-#' \dontrun{
-#' 
+#'
 #' # A vector
 #' unix_time_vector <- c(1460034000, 1460034703)
 #' 
@@ -45,8 +39,6 @@ time_zone <- function(date) attr(date, "tzone")
 #' 
 #' # Or in Berlin's time-zone
 #' parse_unix_time(unix_time_vector, tz = "Europe/Berlin")
-#' 
-#' }
 #' 
 #' @export 
 parse_unix_time <- function(x, tz = "UTC", origin = "1970-01-01") {
@@ -57,8 +49,7 @@ parse_unix_time <- function(x, tz = "UTC", origin = "1970-01-01") {
   # Parse
   x <- as.POSIXct(x, tz = tz, origin = origin)
   
-  # Return
-  x
+  return(x)
   
 }
 
@@ -70,7 +61,9 @@ parse_unix_time <- function(x, tz = "UTC", origin = "1970-01-01") {
 #' @author Stuart K. Grange
 #' 
 #' @param x Numeric vector. 
+#' 
 #' @param tz Time-zone. Default is \code{"UTC"}. 
+#' 
 #' @param type Type of Microsoft Excel date. Can be \code{"windows"} or 
 #' \code{"os_x_2007"}. 
 #' 
@@ -84,8 +77,9 @@ parse_excel_date <- function(x, tz = "UTC", type = "windows") {
   type <- stringr::str_to_lower(type)
   type <- stringr::str_replace_all(type, "\\.| ", "_")
   
-  if (!type %in% c("windows", "os_x_2007")) 
+  if (!type %in% c("windows", "os_x_2007")) {
     stop("Type must be 'windows' or 'os_x_2007'", call. = FALSE)
+  }
   
   # To numeric
   if (!class(x) == "numeric") x <- as.numeric(x)
@@ -97,8 +91,7 @@ parse_excel_date <- function(x, tz = "UTC", type = "windows") {
   # To POSIXct
   x <- parse_unix_time(x, tz = tz)
   
-  # Return
-  x
+  return(x)
   
 }
 
@@ -110,7 +103,9 @@ parse_excel_date <- function(x, tz = "UTC", type = "windows") {
 #' @author Stuart K. Grange
 #' 
 #' @param x Numeric vector. 
+#' 
 #' @param tz Time-zone. Default is \code{"UTC"}. 
+#' 
 #' @param type Type of Microsoft Excel date. Can be \code{"windows"} or 
 #' \code{"os_x_2007"}. 
 #' 
@@ -124,10 +119,11 @@ unix_time_to_excel_date <- function(x, tz = "UTC", type = "windows") {
   type <- stringr::str_to_lower(type)
   type <- stringr::str_replace_all(type, "\\.| ", "_")
   
-  if (!type %in% c("windows", "os_x_2007")) 
+  if (!type %in% c("windows", "os_x_2007")) {
     stop("Type must be 'windows' or 'os_x_2007'", call. = FALSE)
+  }
   
-  # To numeric, why is this giving warnings? To-do figure out why.
+  # To numeric
   suppressWarnings(
     if (!class(x) == "numeric") x <- as.numeric(x)
   )
@@ -136,8 +132,7 @@ unix_time_to_excel_date <- function(x, tz = "UTC", type = "windows") {
   if (type == "windows") x <- (x / 86400) + 25569
   if (type == "os_x_2007") x <- (x / 86400) + 24107
   
-  # Return
-  x
+  return(x)
   
 }
 
@@ -154,7 +149,7 @@ unix_time_to_excel_date <- function(x, tz = "UTC", type = "windows") {
 weekend <- function(x) {
   
   x <- lubridate::wday(x)
-  x <- ifelse(x %in% c(1, 7), TRUE, FALSE)
-  x
+  x <- if_else(x %in% c(1, 7), TRUE, FALSE)
+  return(x)
   
 }

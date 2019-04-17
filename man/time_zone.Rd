@@ -10,21 +10,16 @@ time_zone(date)
 \item{date}{Date vector}
 }
 \value{
-Vector with a length of one.
+Character vector with a length of one.
 }
 \description{
 Function to extract time-zone from a POSIXct date.
 }
 \examples{
-\dontrun{
 
 # A date vector
-time_zone(date_parsed)
-
-# A variable in data frame
-time_zone(data_test$date)
-
-}
+x <- lubridate::ymd_h("2018-05-05 11", tz = "Europe/Zurich")
+time_zone(x)
 
 }
 \author{

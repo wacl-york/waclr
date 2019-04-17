@@ -5,7 +5,7 @@
 #' 
 #' @author Stuart K. Grange
 #' 
-#' @return Data frame. 
+#' @return Tibble. 
 #' 
 #' @examples 
 #' \dontrun{
@@ -22,7 +22,7 @@
 #' @export
 tidy_faam_netcdf <- function(file) {
   
-  data_frame(file = file) %>% 
+  tibble(file = file) %>% 
     rowwise() %>% 
     do(tidy_faam_netcdf_worker(.$file)) %>% 
     ungroup()
@@ -56,7 +56,8 @@ tidy_faam_netcdf_worker <- function(file, tz = "UTC") {
            dplyr::starts_with("lat_", ignore.case = TRUE),
            dplyr::starts_with("lon_", ignore.case = TRUE),
            dplyr::starts_with("alt_", ignore.case = TRUE),
-           everything())
+           everything()) %>% 
+    as_tibble()
   
   return(df)
   
@@ -90,11 +91,8 @@ extract_variable <- function(ncdf, variable) {
   # Get variable's values
   value <- ncdf4::ncvar_get(ncdf, variable)
   
-  # Make a data frame
-  df <- data.frame(
-    value,
-    stringsAsFactors = FALSE
-  )
+  # Make a tibble
+  df <- tibble(value)
   
   # Give name
   names(df) <- variable
