@@ -4,13 +4,13 @@
 
 ![](docs/icon_small.png)
 
-**waclr** is an R package for doing things at the Wolfson Atmospheric Chemistry Laboratory (WACL). 
+**waclr** is an R package for doing things at the Wolfson Atmospheric Chemistry Laboratories (WACL). 
 
 ## Installation
 
-To install the development version the [**devtools**](https://github.com/hadley/devtools) package will need to be installed first. Then:
+To install the development version the [**remotes**](https://github.com/r-lib/remotes) package will need to be installed first. Then:
 
 ```
 # Install waclr
-devtools::install_github("wacl-york/waclr")
+remotes::install_github("wacl-york/waclr")
 ```
