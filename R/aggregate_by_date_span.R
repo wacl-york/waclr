@@ -12,6 +12,8 @@
 #' 
 #' @param progress Type of progress bar. Supply "time" for progress bar. 
 #' 
+#' @param ... Additional arguments to pass to openair::timeAverage
+#' 
 #' @author Will Drysdale and Stuart K. Grange
 #' 
 #' @return Data frame. 
@@ -25,16 +27,16 @@
 #' }
 #'  
 #' @export
-aggregate_by_date_span <- function(df, df_met, warn = TRUE, progress = "none") {
+aggregate_by_date_span <- function(df, df_met, warn = TRUE, progress = "none",...) {
   
   # Do row-wise
   plyr::adply(df, 1, function(x) 
-    aggregate_by_date_span_worker(x, df_met, warn), .progress = progress)
+    aggregate_by_date_span_worker(x, df_met, warn), .progress = progress,...)
   
 }
 
 
-aggregate_by_date_span_worker <- function(df, df_met, warn) {
+aggregate_by_date_span_worker <- function(df, df_met, warn,...) {
   
   # Get dates
   date_start <- df$date_start[1]
@@ -47,7 +49,7 @@ aggregate_by_date_span_worker <- function(df, df_met, warn) {
   if (nrow(df_met_filter) >= 1) {
     
     # Do
-    df_met_filter_agg <- openair::timeAverage(df_met_filter, avg.time = "year")
+    df_met_filter_agg <- openair::timeAverage(df_met_filter, avg.time = "year",...)
     
   } else {
     
