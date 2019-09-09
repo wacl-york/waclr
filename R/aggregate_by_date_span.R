@@ -27,11 +27,11 @@
 #' }
 #'  
 #' @export
-aggregate_by_date_span <- function(df, df_met, warn = TRUE, progress = "none",...) {
+aggregate_by_date_span <- function(df, df_met, warn = TRUE,...) {
   
-  # Do row-wise
-  plyr::adply(df, 1, function(x) 
-    aggregate_by_date_span_worker(x, df_met, warn), .progress = progress,...)
+  df %>% split(seq(nrow(df))) %>% 
+    purrr::map_df(aggregate_by_date_span_worker,df_met = df_met, warn = warn,...)
+  
   
 }
 
@@ -41,6 +41,15 @@ aggregate_by_date_span_worker <- function(df, df_met, warn,...) {
   # Get dates
   date_start <- df$date_start[1]
   date_end <- df$date_end[1]
+  
+  if(is.na(date_start) | is.na(date_end)){
+    if(warn){
+      warning(stringr::str_c("Skipping row: ", row.names(df)), call. = FALSE)
+      return(NULL)
+    }else{
+      return(NULL)
+    }
+  }
   
   # Filter met by dates
   df_met_filter <- df_met[df_met$date >= date_start & df_met$date <= date_end, ]
