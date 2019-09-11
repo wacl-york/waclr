@@ -10,7 +10,7 @@
 #' 
 #' @param warn Should the function give warnings? 
 #' 
-#' @param progress Type of progress bar. Supply "time" for progress bar. 
+#' @param progress Depreciated as purrr::map_Df is used over plyr::adply
 #' 
 #' @param ... Additional arguments to pass to openair::timeAverage
 #' 
@@ -27,16 +27,19 @@
 #' }
 #'  
 #' @export
-aggregate_by_date_span <- function(df, df_met, warn = TRUE,...) {
+aggregate_by_date_span <- function(df, df_met, warn = TRUE, progress = NULL, ...) {
   
-  df %>% split(seq(nrow(df))) %>% 
+  if(!is.null(progress)) # warning in the case of backwards compatibility
+    warning("progress argument is depreciated")
+  
+  df %>% split(seq(nrow(df))) %>% # convert data.frame to a list of its rows
     purrr::map_df(aggregate_by_date_span_worker,df_met = df_met, warn = warn,...)
   
   
 }
 
 
-aggregate_by_date_span_worker <- function(df, df_met, warn,...) {
+aggregate_by_date_span_worker <- function(df, df_met, warn, ...) {
   
   # Get dates
   date_start <- df$date_start[1]

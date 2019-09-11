@@ -4,7 +4,7 @@
 \alias{aggregate_by_date_span}
 \title{Aggregate meteorological data from date span.}
 \usage{
-aggregate_by_date_span(df, df_met, warn = TRUE, progress = "none")
+aggregate_by_date_span(df, df_met, warn = TRUE, progress = NULL, ...)
 }
 \arguments{
 \item{df}{Data frame containing span range.}
@@ -13,7 +13,9 @@ aggregate_by_date_span(df, df_met, warn = TRUE, progress = "none")
 
 \item{warn}{Should the function give warnings?}
 
-\item{progress}{Type of progress bar. Supply "time" for progress bar.}
+\item{progress}{Depreciated as purrr::map_Df is used over plyr::adply}
+
+\item{...}{Additional arguments to pass to openair::timeAverage}
 }
 \value{
 Data frame.
