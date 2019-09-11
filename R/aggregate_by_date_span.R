@@ -10,7 +10,9 @@
 #' 
 #' @param warn Should the function give warnings? 
 #' 
-#' @param progress Type of progress bar. Supply "time" for progress bar. 
+#' @param progress Depreciated as purrr::map_Df is used over plyr::adply
+#' 
+#' @param ... Additional arguments to pass to openair::timeAverage
 #' 
 #' @author Will Drysdale and Stuart K. Grange
 #' 
@@ -25,20 +27,32 @@
 #' }
 #'  
 #' @export
-aggregate_by_date_span <- function(df, df_met, warn = TRUE, progress = "none") {
+aggregate_by_date_span <- function(df, df_met, warn = TRUE, progress = NULL, ...) {
   
-  # Do row-wise
-  plyr::adply(df, 1, function(x) 
-    aggregate_by_date_span_worker(x, df_met, warn), .progress = progress)
+  if(!is.null(progress)) # warning in the case of backwards compatibility
+    warning("progress argument is depreciated")
+  
+  df %>% split(seq(nrow(df))) %>% # convert data.frame to a list of its rows
+    purrr::map_df(aggregate_by_date_span_worker,df_met = df_met, warn = warn,...)
+  
   
 }
 
 
-aggregate_by_date_span_worker <- function(df, df_met, warn) {
+aggregate_by_date_span_worker <- function(df, df_met, warn, ...) {
   
   # Get dates
   date_start <- df$date_start[1]
   date_end <- df$date_end[1]
+  
+  if(is.na(date_start) | is.na(date_end)){
+    if(warn){
+      warning(stringr::str_c("Skipping row: ", row.names(df)), call. = FALSE)
+      return(NULL)
+    }else{
+      return(NULL)
+    }
+  }
   
   # Filter met by dates
   df_met_filter <- df_met[df_met$date >= date_start & df_met$date <= date_end, ]
@@ -47,7 +61,7 @@ aggregate_by_date_span_worker <- function(df, df_met, warn) {
   if (nrow(df_met_filter) >= 1) {
     
     # Do
-    df_met_filter_agg <- openair::timeAverage(df_met_filter, avg.time = "year")
+    df_met_filter_agg <- openair::timeAverage(df_met_filter, avg.time = "year",...)
     
   } else {
     
