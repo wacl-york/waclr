@@ -17,7 +17,22 @@ read_ICAD = function(ch1,
                      tz = "UTC",
                      pad = FALSE){
   
-  if(is.null(ch2)){
+  require(dplyr)
+  
+  firstLine = readLines(ch1, n = 1)
+  firstWord = stringr::word(firstLine,1,sep = " ")
+  if(firstWord == "Analyser"){
+    skip = 1
+  }else{
+    skip = 0
+  }
+    
+  
+  if(is.null(ch2) & firstWord == "Analyser"){
+    ch2 = stringr::str_replace(ch1,"NO2_CHOCHO_Channel1","NOx_NO_Channel2")
+  }
+  
+  if(is.null(ch2) & firstWord != "Analyser"){
     ch2 = stringr::str_replace(ch1,"Channel1","Channel2")
   }
   
@@ -27,6 +42,7 @@ read_ICAD = function(ch1,
                     read.table(sep = "\t",
                                header = T,
                                comment.char = "",
+                               skip = skip,
                                na.strings = c("nan",intToUtf8(8734),intToUtf8(c(45,8734)))) %>% 
                     dplyr::tibble() 
     ) %>% 
@@ -37,9 +53,9 @@ read_ICAD = function(ch1,
   
   if(pad){
     dat = dat %>% 
-      dplyr::mutate(dplyr::across(c(NO2..ppb., NO2.x..ppb., NO.Measured..ppb.),
+      dplyr::mutate(dplyr::across(any_of(c("NO2..ppb.", "NO2.x..ppb.", "NO.Measured..ppb.","NOx..ppb.")),
                                   ~zoo::na.approx(.x, na.rm = F)),
-                    NO_calc = NO2.x..ppb.-NO2..ppb.)
+                    NO_calc = ifelse(skip == 0, NO2.x..ppb.-NO2..ppb., NOx..ppb.-NO2..ppb.))
     
   }
 
